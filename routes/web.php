@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\{
+    ConfirmPasswordController,
     LoginController,
     RegisterController,
     ForgotPasswordController,
@@ -51,14 +52,29 @@ Route::middleware('guest')->group(function() {
 
 Route::middleware('auth')->group(function(){
     //Email verification
-    Route::get('email/verify',[VerificationController::class, 'notice'])->name('verification.notice');
-    Route::get('email/verify/{id}/{hash}',[VerificationController::class,'verify'])-> middleware('signed')->name('verification.send');
+    Route::get('/email/verify', [VerificationController::class, 'notice'])
+    ->name('verification.notice');
+    
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['signed'])
+    ->name('verification.verify');
+
+    Route::post('/email/verification-notification', [VerificationController::class, 'send'])
+    ->middleware(['throttle:6,1'])
+    ->name('verification.send');
+
+
+    //password confirmation routes
+
+    Route::get('confirm-password',[ConfirmPasswordController::class,'showConfirmForm'])->name('password.confirm');
+    Route::post('confirm-password',[ConfirmPasswordController::class,'confirm'])->name('password.confirm.submit');
 
 
     // Logout
 
     Route::post('logout' , [LoginController::class,'logout'])->name('logout');
 });
+
 
 // Admin routes
 
@@ -76,5 +92,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','verified','role:admi
 });
 
 Route::get('/',function(){
-    return view('welcom');
+    return view('welcome');
 })->name('home');

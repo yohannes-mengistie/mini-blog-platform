@@ -19,22 +19,23 @@ class VerificationController extends Controller
     
     // manual and very verbose implementation
 
-    // public function verify(Request $request){
-    //     if($request->user()->hasVerifiedEmail()){
-    //         return redirect()->route('home');
-    //     }
-
-    //     if($request->user()->markEmailAsVerified()){
-    //         event(new Verified($request->user()));
-    //     }
-
-    //     return redirect()->route('home')->with('status', 'Your email has been verified!');
-    // }
-
-    public function verify(EmailVerificationRequest $request){
-        $request->fulfill();
+   public function verify(EmailVerificationRequest $request)
+{
+    if ($request->user()->hasVerifiedEmail()) {
         return redirect()->route('home');
     }
+
+    if ($request->user()->markEmailAsVerified()) {
+        event(new Verified($request->user()));
+    }
+
+    return redirect()->route('home')->with('status', 'Your email has been verified!');
+}
+
+    // public function verify(EmailVerificationRequest $request){
+    //     $request->fulfill();
+    //     return redirect()->route('home');
+    // }
     
     public function send(Request $request){
         if($request->user()->hasVerifiedEmail()){

@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -16,7 +18,7 @@ class RegisterController extends Controller
 
     // validating and creating the user
 
-    public function store(){
+    public function store(Request $request){
         $attributes = request()-> validate([
             'name' => ['required'],
             'email' => ['required','string','email','max:255','unique:users'],
@@ -25,12 +27,20 @@ class RegisterController extends Controller
 
         // create user
 
-        $user = User::create($attributes);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'reader', // Default role
+        ]);
 
         // dispach the registration
 
         event(new Registered($user));
 
-        return redirect()->route('login')->with('success' , 'Registration successfull! Please check you email for verification');
+        Auth::login($user);
+
+        //return redirect()->route('login');
+        return redirect()->route('verification.notice');
     }
 }

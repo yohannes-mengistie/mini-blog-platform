@@ -6,7 +6,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -30,24 +29,35 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_approved' => 'boolean',
     ];
 
+    /**
+     * Check if user is admin
+     */
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
 
+    /**
+     * Check if user is writer
+     */
     public function isWriter(): bool
     {
         return $this->role === 'writer';
     }
 
+    /**
+     * Check if user is reader
+     */
     public function isReader(): bool
     {
         return $this->role === 'reader';
     }
 
-    public function hasVerifiedEmail()
-{
-    return !is_null($this->email_verified_at);
-}
-
+    /**
+     * Check if user has specific role
+     */
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
+    }
 }

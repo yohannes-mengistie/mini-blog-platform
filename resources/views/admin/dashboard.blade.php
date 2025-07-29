@@ -1,0 +1,124 @@
+@extends('admin.layout')
+
+@section('title', 'Admin Dashboard')
+
+@section('content')
+<div class="space-y-6">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Total Users Card -->
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
+                        <i class="fas fa-users text-white"></i>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dt class="text-sm font-medium text-gray-500 truncate">
+                            Total Users
+                        </dt>
+                        <dd class="flex items-baseline">
+                            <div class="text-2xl font-semibold text-gray-900">
+                                {{ $usersCount }}
+                            </div>
+                        </dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Writers Card -->
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
+                        <i class="fas fa-pen-fancy text-white"></i>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dt class="text-sm font-medium text-gray-500 truncate">
+                            Writers
+                        </dt>
+                        <dd class="flex items-baseline">
+                            <div class="text-2xl font-semibold text-gray-900">
+                                {{ $writersCount }}
+                            </div>
+                        </dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Writers Card -->
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
+                        <i class="fas fa-clock text-white"></i>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dt class="text-sm font-medium text-gray-500 truncate">
+                            Pending Writers
+                        </dt>
+                        <dd class="flex items-baseline">
+                            <div class="text-2xl font-semibold text-gray-900">
+                                {{ $pendingWriters }}
+                            </div>
+                        </dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Recent Activity
+            </h3>
+        </div>
+        <div class="bg-white overflow-hidden">
+            <ul class="divide-y divide-gray-200">
+                <!-- Sample activity items - you would replace with real data -->
+                <li class="px-4 py-4 sm:px-6">
+                    <div class="flex items-center">
+                        <div class="min-w-0 flex-1 flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-user-plus text-green-500"></i>
+                            </div>
+                            <div class="min-w-0 flex-1 px-4">
+                                <div>
+                                    <p class="text-sm text-gray-900">
+                                        New user registered: John Doe
+                                    </p>
+                                    <p class="text-sm text-gray-500">
+                                        2 hours ago
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="px-4 py-4 sm:px-6">
+                    <div class="flex items-center">
+                        <div class="min-w-0 flex-1 flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-blue-500"></i>
+                            </div>
+                            <div class="min-w-0 flex-1 px-4">
+                                <div>
+                                    <p class="text-sm text-gray-900">
+                                        Writer approved: Jane Smith
+                                    </p>
+                                    <p class="text-sm text-gray-500">
+                                        5 hours ago
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@endsection

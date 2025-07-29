@@ -34,6 +34,11 @@ class RegisterController extends Controller
             'role' => 'reader', // Default role
         ]);
 
+        if($request->is('api*')){
+            //sanctum logic
+            $user->createToken();
+            return response()->json();
+        }
         // dispach the registration
 
         event(new Registered($user));

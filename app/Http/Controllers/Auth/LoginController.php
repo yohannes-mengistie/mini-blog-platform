@@ -23,14 +23,16 @@ class LoginController extends Controller
             'password' => ['required']
         ]);
 
-        if (!Auth::attempt($credentials, $request->boolean('remember'))) {
+        $remember = !empty($request->remember) ? true:false;
+
+        if (!Auth::attempt($credentials, $remember)) {
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
         }
 
         $request->session()->regenerate();
-        
+
         /** @var User $user */
         $user = Auth::user();
 
@@ -46,13 +48,17 @@ class LoginController extends Controller
             return back()->with('error', 'Your account is pending approval from admin.');
         }
 
-        return $this->authenticated($request, $user);
+        return $this->authenticated($user);
     }
 
-    protected function authenticated(Request $request, User $user)
+    protected function authenticated(User $user)
     {
         if ($user->isAdmin()) {
             return redirect()->route('admin.dashboard');
+        }
+
+        if($user->isReader()){
+            return redirect()->route('home');
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);

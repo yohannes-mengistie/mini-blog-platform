@@ -36,7 +36,7 @@ class UserController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role' => $validated['role'],
-            'is_approved' => $validated['role'] !== 'writer', // Auto-approve if not writer
+            'is_approved' => $validated['role'] !== 'writer', 
         ]);
 
         return redirect()->route('admin.users.index')->with('success', 'User created successfully.');

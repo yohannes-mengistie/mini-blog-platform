@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\{
     DashboardController,
     UserController
 };
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -54,7 +55,7 @@ Route::middleware('auth')->group(function(){
     //Email verification
     Route::get('/email/verify', [VerificationController::class, 'notice'])
     ->name('verification.notice');
-    
+
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
     ->middleware(['signed'])
     ->name('verification.verify');
@@ -91,6 +92,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','verified','role:admi
 
 });
 
+// Blog routes
+Route::resource('blogs', BlogController::class);
+
+// Welcome page
 Route::get('/',function(){
     return view('welcome');
 })->name('home');

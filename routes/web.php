@@ -48,16 +48,18 @@ Route::middleware('guest')->group(function() {
 
 });
 
+
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+->middleware(['signed'])
+->name('verification.verify');
 // Authenticated routes
 
 Route::middleware('auth')->group(function(){
     //Email verification
     Route::get('/email/verify', [VerificationController::class, 'notice'])
     ->name('verification.notice');
-    
-    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-    ->middleware(['signed'])
-    ->name('verification.verify');
+
+
 
     Route::post('/email/verification-notification', [VerificationController::class, 'send'])
     ->middleware(['throttle:6,1'])

@@ -9,10 +9,10 @@ use App\Http\Controllers\Auth\Api\{
     LoginController,
     ForgotPasswordController,
     ResetPasswordController,
-    VerificationController
+    EmailVerificationController
 
 };
-
+use Mockery\VerificationDirector;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +33,30 @@ use App\Http\Controllers\Auth\Api\{
 Route::middleware('guest')->group(function(){
     Route::post('/register' , [RegisterController::class,'store']);
     Route::post('/login' , [LoginController::class,'login']);
+
+
+    Route::post('forgot-password',[ForgotPasswordController::class,'sendResetLinkEmail'])->name('password.email');
+    Route::get('reset-password/{token}',[ResetPasswordController::class,'showResetForm'])->name('password.reset');
+    Route::post('reset-password',[ResetPasswordController::class,'reset'])->name('password.update');
+
+});
+
+
+// Authenticated routes
+Route::get('/email/verify/{id}/{hash}',[EmailVerificationController::class,'verify'])->middleware(['signed'])->name('verification.verify');
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/email/verify',[EmailVerificationController::class,'notice'])->name('verification.notice');
+    Route::post('/email/verification-notification',[EmailVerificationController::class ,'send'])->middleware(['throttle:6,1'])->name('verification.send');
+
+    // password confirmition
+    
+    Route::get('confirm-password',[ConfirmPasswordController::class,'showConfirmForm'])->name('password.confirm');
+    Route::post('confirm-password',[ConfirmPasswordController::class,'confirm'])->name('password.confirm.submit');
+
+
+    // Logout
+
+    Route::post('logout' , [LoginController::class,'logout'])->name('logout');
 });
 
 

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Blog;
 
 use Illuminate\Http\Request;
 use App\Models\Blog;
+use App\Http\Controllers\Controller;
 
 class BlogController extends Controller
 {
@@ -23,12 +24,14 @@ class BlogController extends Controller
     public function store() {
         request()->validate([
         'blog_title' => ['required'],
+        'blog_description' => ['required', 'max:200'],
         'blog_content' => ['required']
         ]);
 
         Blog::create([
             'blog_title' => request('blog_title'),
-            'blog_content' => request('blog_contect'),
+            'blog_description' => request('blog_description'),
+            'blog_content' => request('blog_content'),
             'user_id' => 1
         ]);
 

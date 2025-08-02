@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(App\Models\User::class);
             $table->string('blog_title');
+            $table->string('blog_description');
             $table->text('blog_content');
             $table->timestamps();
         });

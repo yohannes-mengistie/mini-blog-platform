@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\{
     DashboardController,
     UserController
 };
-use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Blog\BlogController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 

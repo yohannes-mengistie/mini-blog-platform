@@ -58,7 +58,11 @@ class LoginController extends Controller
         }
 
         if($user->isReader()){
-            return redirect()->route('home');
+            return redirect()->route('blogs.index');
+        }
+
+        if($user->isWriter()){
+            return redirect()->route('blogs.index');
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);

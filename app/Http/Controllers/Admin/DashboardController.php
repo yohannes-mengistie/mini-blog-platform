@@ -11,10 +11,11 @@ class DashboardController extends Controller
     public function index()
     {
         $usersCount = User::count();
-        $writersCount = User::where('role', 'writer')->count();
-        $pendingWriters = User::where('role', 'writer')->where('is_approved', false)->count();
+        $writersCount = User::where('role', 'writer')->where('is_approved',true)->count();
+        $pendingWriters = User::where('role', 'reader')->where('writer_requested', true)->get();
+        $pendingWritersCount = $pendingWriters->count();
         $activities = Activity::latest()->take(10)->get();
 
-        return view('admin.dashboard', compact('usersCount', 'writersCount', 'pendingWriters','activities'));
+        return view('admin.dashboard', compact('usersCount', 'writersCount', 'pendingWriters','pendingWritersCount','activities'));
     }
 }

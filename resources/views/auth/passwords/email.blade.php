@@ -1,4 +1,5 @@
 <x-layout title="Reset your password">
+    <x-slot:heading>Sign In</x-slot:heading>
     <X-auth-card title=" Reset your password"
         description="Enter your email and we'll send you a link to reset your password">
         <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

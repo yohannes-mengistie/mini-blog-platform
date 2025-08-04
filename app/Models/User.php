@@ -18,6 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'role',
         'is_approved',
+        'writer_requested'
     ];
 
     protected $hidden = [
@@ -28,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'is_approved' => 'boolean',
+        'writer_requested' => 'boolean'
     ];
 
     /**
@@ -60,5 +62,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasRole(string $role): bool
     {
         return $this->role === $role;
+    }
+
+    public function blogs() {
+        return $this -> hasMany(Blog::class);
     }
 }

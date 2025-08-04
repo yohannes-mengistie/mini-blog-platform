@@ -14,7 +14,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->paginate(10);
-        return view('admin.users.index', compact('users'));
+        $pendingWriters = User::where('role','reader')->where('writer_requested',true)->get();
+        return view('admin.users.index', compact('users','pendingWriters'));
     }
 
     public function create()
@@ -36,7 +37,7 @@ class UserController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role' => $validated['role'],
-            'is_approved' => $validated['role'] !== 'writer', 
+            'is_approved' => $validated['role'] !== 'writer',
         ]);
 
         return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
@@ -73,11 +74,24 @@ class UserController extends Controller
 
     public function approve(User $user)
     {
-        if ($user->role !== 'writer') {
-            return back()->with('error', 'Only writers can be approved.');
+        if ($user->role !== 'reader' || !$user->writer_requested) {
+            return back()->with('error', 'No valied writer request found.');
         }
 
-        $user->update(['is_approved' => true]);
+        $user->update([
+            'role' => 'writer',
+            'is_approved' => true,
+            'writer_requested' => false,
+        ]);
         return back()->with('success', 'Writer approved successfully.');
+    }
+
+    public function rejectWriter(User $user){
+        if(!$user->writer_requested){
+            return back()->with('error', 'No writer request found for this user.');
+        }
+
+        $user->update(['writer_requested' => false]);
+        return back()->with('success','writer request rejected successfully.');
     }
 }

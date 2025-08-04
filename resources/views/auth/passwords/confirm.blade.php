@@ -1,8 +1,9 @@
 <x-layout title="Confirm Password">
+    <x-slot:heading>Sign In</x-slot:heading>
     <x-auth-card title="Confirm Password" description="Please confirm your password before continuing.">
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
-       
+
         <form class="mt-8 space-y-6" method="POST" action="{{ route('password.confirm.submit') }}">
             @csrf
 

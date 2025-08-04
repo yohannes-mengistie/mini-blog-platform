@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\{
     DashboardController,
     UserController
 };
+use App\Http\Controllers\Blog\BlogController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -60,7 +62,6 @@ Route::middleware('auth')->group(function(){
     ->name('verification.notice');
 
 
-
     Route::post('/email/verification-notification', [VerificationController::class, 'send'])
     ->middleware(['throttle:6,1'])
     ->name('verification.send');
@@ -89,10 +90,32 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','verified','role:admi
 
     //Approve writers
 
-    Route::post('user/{user}/approve',[UserController::class,'approve'])->name('users.approve');
+    Route::patch('user/{user}/approve',[UserController::class,'approve'])->name('users.approve');
+    Route::patch('user/{user}/reject',[UserController::class,'rejectWriter'])->name('users.rejectWriter');
 
 });
 
+// Blog routes
+Route::middleware('auth')->group(function(){
+    Route::resource('blogs', BlogController::class)->except(['edit','create']);
+});
+
+Route::middleware(['auth','can:editblog,blog'])->group(function(){
+    Route::get('blogs/{blog}/edit' , [BlogController::class,'edit'])->name('blogs.edit');
+});
+
+Route::middleware(['auth','role:writer'])->group(function(){
+    Route::get('blogs/create',[BlogController::class,'create'])->name('blogs.create');
+});
+
+// profile routes
+Route::middleware('auth')->group(function(){
+    Route::get('/profile',[UserProfileController::class,'show'])->name('profile.show');
+    Route::post('/profile/request-writer',[UserProfileController::class,'requestWriter'])->name('profile.requestWriter');
+});
+
+
+// Welcome page
 Route::get('/',function(){
     return view('welcome');
 })->name('home');

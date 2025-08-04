@@ -24,7 +24,8 @@ class ActivityObserver
 
     // custome function
 
-    public function approve(User $user){
+    public function approve(User $user)
+    {
         $user->update(['is_approved' => true]);
 
         Activity::create([

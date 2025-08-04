@@ -1,4 +1,7 @@
 <x-layout title="Create a new Account">
+
+    <x-slot:heading>Create your account</x-slot:heading>
+
     <x-auth-card title="Create your account" description="Join our community today">
         <form class="mt-8 space-y-6" method="POST" action="{{ route('register') }}">
             @csrf
@@ -14,7 +17,7 @@
                 <div>
                     <x-label for="email" value="Email Address" />
                     <x-input id="email" name="email" type="email" autocomplete="email" required
-                        
+
                         placeholder="Email address" :value="old('email')" />
                     @error('email')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -23,7 +26,7 @@
                 <div>
                     <x-label for="password" value="Password" />
                     <x-input id="password" name="password" type="password" autocomplete="new-password" required
-                        
+
                         placeholder="Password" />
                     @error('password')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -32,7 +35,7 @@
                 <div>
                     <x-label for="password_confirmation" value="Confirm Password" />
                     <x-input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password" required
-                        
+
                         placeholder="Confirm Password" />
                 </div>
             </div>
@@ -44,11 +47,11 @@
                 </x-button>
             </div>
         </form>
-        
+
         @slot('footer')
-        
+
         <div class="text-center text-sm text-gray-600">
-            Already have an account? 
+            Already have an account?
             <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500">
                 Sign in here
             </a>

@@ -24,8 +24,13 @@
             <div class="hidden md:flex justify-right pr-4">
                 <div class="mr-auto flex items-center gap-4">
                     @guest
-                        <x-navlink href="{{route('login')}}" :active="request()->is('login')">Log In</x-navlink>
-                        <x-navlink href="{{route('register')}}" :active="request()->is('register')">Register</x-navlink>
+                        <div class="flex justify-between">
+                            <div></div>
+                            <div>
+                                <x-navlink href="{{route('login')}}" :active="request()->is('login')" >Log In</x-navlink>
+                                <x-navlink href="{{route('register')}}" :active="request()->is('register')">Register</x-navlink>
+                            </div>
+                        </div>
                     @endguest
                     @auth
                     <form action="{{route('logout')}}" method="POST">
@@ -46,12 +51,14 @@
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between">
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $heading }}</h1>
             <a href='/blogs/create'
-               class="mt-6 relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150 dark:bg-gray-800 dark:border-gray-600 dark:active:bg-gray-700 dark:focus:border-blue-800"
+               class='inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25 transition'
             >Create Blog</a>
         </div>
     </header>
 
-    {{ $slot }}
+    <div class="m-10">
+        {{ $slot }}
+    </div>
 
     <!-- Flash messages -->
     @if(session('status'))

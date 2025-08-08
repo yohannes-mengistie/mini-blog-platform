@@ -64,7 +64,7 @@
 
         <div class="mt-6 flex items-center justify-end gap-x-6">
             <a href="/blogs" class="text-sm/6 font-semibold text-gray-900 hover:rounded-md hover:bg-gray-400 hover:px-1.5 hover:py-1.5">Cancel</a>
-            <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+            <button type="submit" class='inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25 transition'>Save</button>
         </div>
     </form>
 </x-layout>

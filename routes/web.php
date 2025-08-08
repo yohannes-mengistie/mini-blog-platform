@@ -96,6 +96,4 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','verified','role:admi
 Route::resource('blogs', BlogController::class);
 
 // Welcome page
-Route::get('/',function(){
-    return view('welcome');
-})->name('home');
+Route::get('/', [BlogController::class, 'index'])->name('home');

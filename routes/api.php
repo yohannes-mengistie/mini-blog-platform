@@ -12,6 +12,10 @@ use App\Http\Controllers\Auth\Api\{
     EmailVerificationController
 
 };
+
+use App\Http\Controllers\Blog\Api\{
+    BlogController,
+};
 use Mockery\VerificationDirector;
 
 /*
@@ -49,7 +53,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/email/verification-notification',[EmailVerificationController::class ,'send'])->middleware(['throttle:6,1'])->name('verification.send');
 
     // password confirmition
-    
+
     Route::get('confirm-password',[ConfirmPasswordController::class,'showConfirmForm'])->name('password.confirm');
     Route::post('confirm-password',[ConfirmPasswordController::class,'confirm'])->name('password.confirm.submit');
 
@@ -59,4 +63,18 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('logout' , [LoginController::class,'logout'])->name('logout');
 });
 
+
+// Blog routes
+// Route::middleware('auth:sanctum')->group(function(){
+//     Route::resource('blogs', BlogController::class)->except(['edit']);
+// });
+Route::get('/blogs/index',[BlogController::class,'index'])->middleware('auth:sanctum');
+
+Route::middleware(['auth:sanctum','can:editblog,blog'])->group(function(){
+    Route::get('blogs/{blog}/edit' , [BlogController::class,'edit'])->name('blogs.edit');
+});
+
+Route::middleware(['auth:sanctum','role:writer'])->group(function(){
+    Route::get('blogs/create',[BlogController::class,'create'])->name('blogs.create');
+});
 

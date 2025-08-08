@@ -97,7 +97,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','verified','role:admi
 
 // Blog routes
 Route::middleware('auth')->group(function(){
-    Route::resource('blogs', BlogController::class)->except(['edit','create']);
+    Route::resource('blogs', BlogController::class)->except(['edit']);
 });
 
 Route::middleware(['auth','can:editblog,blog'])->group(function(){
@@ -107,6 +107,7 @@ Route::middleware(['auth','can:editblog,blog'])->group(function(){
 Route::middleware(['auth','role:writer'])->group(function(){
     Route::get('blogs/create',[BlogController::class,'create'])->name('blogs.create');
 });
+
 
 // profile routes
 Route::middleware('auth')->group(function(){

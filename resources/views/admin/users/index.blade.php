@@ -49,7 +49,7 @@
                                                 <i class="fas fa-check"></i> Approve
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.users.reject', $writer) }}" method="POST" class="inline">
+                                        <form action="{{ route('admin.users.rejectWriter', $writer) }}" method="POST" class="inline">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" class="text-red-600 hover:text-red-900">

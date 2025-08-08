@@ -10,9 +10,9 @@
 
     <br />
 
-    <div class="space-y-4">
+    <div class="space-y-4 ml-10">
         @foreach ($blogs as $blog)
-            <a href="/blogs/{{$blog['id']}}" class="block px-4 py-4 border border-black-200 rounded-lg">
+            <a href="/blogs/{{$blog['id']}}" class="block px-4 py-4 border border-black-200 rounded-lg bg-gray-100">
                 <div class="font-bold text-blue-500 text-sm">
                     {{ $blog->user->name }}
                 </div>

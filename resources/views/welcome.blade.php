@@ -1,10 +1,10 @@
 <x-layout title="Welcome Page">
 
     <x-slot:heading>
-        This is our landing page.
+
     </x-slot:heading>
 
-    <div class="">
+    <div class="mt-0">
     {{-- <header class="py-4 bg-black sm:py-6" x-data="{expanded: false}">
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">

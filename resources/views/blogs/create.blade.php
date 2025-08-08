@@ -63,7 +63,7 @@
         </div>
 
         <div class="mt-6 flex items-center justify-end gap-x-6">
-            <a href="/blogs" class="text-sm/6 font-semibold text-gray-900 hover:rounded-md hover:bg-gray-400 hover:px-2 hover:py-2">Cancel</button>
+            <a href="/blogs" class="text-sm/6 font-semibold text-gray-900 hover:rounded-md hover:bg-gray-400 hover:px-1.5 hover:py-1.5">Cancel</a>
             <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
         </div>
     </form>

@@ -5,7 +5,7 @@
     </x-slot:title>
 
     <x-slot:heading>
-        {{ $blog->blog_title }}
+        {{ $blog->blog_title }} <p class="font-semibold italic"> {{ $blog->blog_description }} </p>
     </x-slot:heading>
 
     <p class="m-10 whitespace-pre-line max-w-full overflow-x-auto bg-white p-4 border-l-2 border-r-2 border-gray-300"> {{ $blog->blog_content }} </p>

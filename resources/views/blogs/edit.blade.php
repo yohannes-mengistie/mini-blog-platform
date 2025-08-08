@@ -4,7 +4,7 @@
     </x-slot:title>
 
     <x-slot:heading>
-        Edit Blog: {{ $blog->blog_title }}
+        Edit Blog: {{ $blog->blog_title }} 
     </x-slot:heading>
 
     <form method="POST", action="/blogs/{{ $blog->id }}">
@@ -90,7 +90,7 @@
             </div>
 
             <div class="flex items-center gap-x-6">
-                <a href="/blogs/{{ $blog->id }}" class="text-sm/6 font-semibold text-gray-900 hover:rounded-md hover:bg-gray-400 hover:px-2 hover:py-2">Cancel</a>
+                <a href="/blogs/{{ $blog->id }}" class="text-sm/6 font-semibold text-gray-900 hover:rounded-md hover:bg-gray-400 hover:px-1.5 hover:py-1.5">Cancel</a>
                 <div>
                     <button
                     type="submit"

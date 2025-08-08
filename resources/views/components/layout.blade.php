@@ -24,9 +24,9 @@
             <div class="hidden md:flex justify-right pr-4">
                 <div class="mr-auto flex items-center gap-4">
                     @guest
-                        <div class="flex justify-between">
-                            <div></div>
-                            <div>
+                        <div class="flex h-16 items-center justify-between">
+                            <div class="flex items-center"></div>
+                            <div class="flex items-center gap-4">
                                 <x-navlink href="{{route('login')}}" :active="request()->is('login')" >Log In</x-navlink>
                                 <x-navlink href="{{route('register')}}" :active="request()->is('register')">Register</x-navlink>
                             </div>

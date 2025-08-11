@@ -10,7 +10,6 @@ use App\Http\Controllers\Auth\Api\{
     ForgotPasswordController,
     ResetPasswordController,
     EmailVerificationController
-
 };
 
 use App\Http\Controllers\Blog\Api\{
@@ -34,47 +33,46 @@ use Mockery\VerificationDirector;
 //     return $request->user();
 // });
 
-Route::middleware('guest')->group(function(){
-    Route::post('/register' , [RegisterController::class,'store']);
-    Route::post('/login' , [LoginController::class,'login']);
+Route::middleware('guest')->group(function () {
+    Route::post('/register', [RegisterController::class, 'store']);
+    Route::post('/login', [LoginController::class, 'login']);
 
 
-    Route::post('forgot-password',[ForgotPasswordController::class,'sendResetLinkEmail'])->name('password.email');
-    Route::get('reset-password/{token}',[ResetPasswordController::class,'showResetForm'])->name('password.reset');
-    Route::post('reset-password',[ResetPasswordController::class,'reset'])->name('password.update');
-
+    Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 });
 
 
 // Authenticated routes
-Route::get('/email/verify/{id}/{hash}',[EmailVerificationController::class,'verify'])->middleware(['signed'])->name('verification.verify');
-Route::middleware('auth:sanctum')->group(function(){
-    Route::get('/email/verify',[EmailVerificationController::class,'notice'])->name('verification.notice');
-    Route::post('/email/verification-notification',[EmailVerificationController::class ,'send'])->middleware(['throttle:6,1'])->name('verification.send');
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/email/verify', [EmailVerificationController::class, 'notice'])->name('verification.notice');
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])->middleware(['throttle:6,1'])->name('verification.send');
 
     // password confirmition
 
-    Route::get('confirm-password',[ConfirmPasswordController::class,'showConfirmForm'])->name('password.confirm');
-    Route::post('confirm-password',[ConfirmPasswordController::class,'confirm'])->name('password.confirm.submit');
+    Route::get('confirm-password', [ConfirmPasswordController::class, 'showConfirmForm'])->name('password.confirm');
+    Route::post('confirm-password', [ConfirmPasswordController::class, 'confirm'])->name('password.confirm.submit');
 
 
     // Logout
 
-    Route::post('logout' , [LoginController::class,'logout'])->name('logout');
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-
-// Blog routes
-// Route::middleware('auth:sanctum')->group(function(){
-//     Route::resource('blogs', BlogController::class)->except(['edit']);
-// });
-Route::get('/blogs/index',[BlogController::class,'index'])->middleware('auth:sanctum');
-
-Route::middleware(['auth:sanctum','can:editblog,blog'])->group(function(){
-    Route::get('blogs/{blog}/edit' , [BlogController::class,'edit'])->name('blogs.edit');
+Route::get('/blogs/index', [BlogController::class, 'index'])->middleware('auth:sanctum');
+Route::middleware(['auth:sanctum', 'can:editblog,blog'])->group(function () {
+    Route::patch('blogs/{blog}', [BlogController::class, 'update'])->name('blogs.update');
+    Route::get('blogs/{blog}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
 });
 
-Route::middleware(['auth:sanctum','role:writer'])->group(function(){
-    Route::get('blogs/create',[BlogController::class,'create'])->name('blogs.create');
+Route::middleware(['auth:sanctum', 'role:writer'])->group(function () {
+    Route::post('blogs/create', [BlogController::class, 'store'])->name('blogs.create');
+    Route::post('blogs/{blog}',[BlogController::class,'destroy'])->name('blogs.destroy');
 });
+
+Route::get('blogs/{blog}', [BlogController::class, 'show'])->name('blogs.show');
+
+
 

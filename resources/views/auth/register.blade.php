@@ -1,7 +1,5 @@
 <x-layout title="Create a new Account">
-
-    <x-slot:heading>Create your account</x-slot:heading>
-
+    <x-slot:heading>Sign In</x-slot:heading>
     <x-auth-card title="Create your account" description="Join our community today">
         <form class="mt-8 space-y-6" method="POST" action="{{ route('register') }}">
             @csrf

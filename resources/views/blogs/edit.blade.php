@@ -84,18 +84,18 @@
         <div class="mt-6 flex items-center justify-between gap-x-6">
 
             <div class="flex items-center">
-                <x-button form="delete-form" class="text-red-500 text-sm font-bold hover:bg-red-500 hover:text-white-500">
-                    DELETE
-                </x-button>
+                <button form="delete-form" class="text-red-500 text-sm font-bold">
+                    Delete
+                </button>
             </div>
 
             <div class="flex items-center gap-x-6">
-                <a href="/blogs/{{ $blog->id }}" class="text-sm/6 font-semibold text-gray-900 hover:rounded-md hover:bg-gray-400 hover:px-1.5 hover:py-1.5">Cancel</a>
+                <a href="/blogs/{{ $blog->id }}" class="text-sm/6 font-semibold text-gray-900 hover:rounded-md hover:bg-gray-400 hover:px-2 hover:py-2">Cancel</a>
                 <div>
                     <button
                     type="submit"
-                    class='inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25 transition'
-                    >UPDATE</button>
+                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >Update</button>
                 </div>
             </div>
         </div>

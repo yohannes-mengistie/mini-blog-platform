@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class BlogController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $blogs = Blog::with('user')->latest()->get();
         return view('blogs.index', ['blogs' => $blogs]);
     }
@@ -32,7 +32,7 @@ class BlogController extends Controller
             'blog_title' => request('blog_title'),
             'blog_description' => request('blog_description'),
             'blog_content' => request('blog_content'),
-            'user_id' => 1
+            'user_id' => auth()->id()
         ]);
 
         return redirect('/blogs');

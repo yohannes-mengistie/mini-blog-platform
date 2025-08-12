@@ -1,23 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
-    public function show(){
-        return view('auth.register');
-    }
-
-    // validating and creating the user
-
     public function store(Request $request){
         $attributes = request()-> validate([
             'name' => ['required'],
@@ -31,17 +25,23 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'reader', // Default role
+            'role' => 'reader',
         ]);
-
-        
-        // dispach the registration
 
         event(new Registered($user));
 
-        Auth::login($user);
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        //return redirect()->route('login');
+        if($request->wantsJson()){
+            return response()->json([
+                'message'=> 'Registration successful. Please verify your email.',
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'user' => $user
+            ], 201);
+        }
+
+        Auth::login($user);
         return redirect()->route('verification.notice');
     }
 }

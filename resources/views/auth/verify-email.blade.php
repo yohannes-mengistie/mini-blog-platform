@@ -1,7 +1,5 @@
 <x-layout title="Email Verification">
-
-    <x-slot:heading>Email Verification</x-slot:heading>
-
+    <x-slot:heading>Sign In</x-slot:heading>
     <x-auth-card title="Verify Your Email Address"
                  description="Before proceeding, please check your email for a verification link.">
 

@@ -1,7 +1,5 @@
 <x-layout title="Sign In">
-
-    <x-slot:heading>Login</x-slot:heading>
-
+    <x-slot:heading>Sign In</x-slot:heading>
     <x-auth-card title="Welcome back" description="Sign in to your account">
         @if($errors->any())
             <div class="mb-4 p-4 bg-red-50 text-red-700 rounded-lg">

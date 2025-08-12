@@ -1,16 +1,8 @@
-@extends('layouts.app')
-
-@section('content')
+<x-layout title="Confirm Password">
+    <x-slot:heading>Sign In</x-slot:heading>
+    <x-auth-card title="Confirm Password" description="Please confirm your password before continuing.">
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
-        <div>
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Confirm Password
-            </h2>
-            <p class="mt-2 text-center text-sm text-gray-600">
-                Please confirm your password before continuing.
-            </p>
-        </div>
 
         <form class="mt-8 space-y-6" method="POST" action="{{ route('password.confirm.submit') }}">
             @csrf
@@ -44,4 +36,6 @@
         </form>
     </div>
 </div>
-@endsection
+
+    </x-auth-card>
+</x-layout>
